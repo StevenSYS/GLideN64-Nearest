@@ -250,6 +250,9 @@ void ConfigDialog::_init(bool reInit, bool blockCustomSettings)
 	case BILINEAR_STANDARD:
 		ui->blnrStandardRadioButton->setChecked(true);
 		break;
+	case BILINEAR_NEAREST:
+		ui->blnrNearestRadioButton->setChecked(true);
+		break;
 	}
 
 	ui->ditheringModeComboBox->setCurrentIndex(config.generalEmulation.rdramImageDitheringMode);
@@ -592,6 +595,8 @@ void ConfigDialog::accept(bool justSave) {
 		config.texture.bilinearMode = BILINEAR_STANDARD;
 	else if (ui->blnr3PointRadioButton->isChecked())
 		config.texture.bilinearMode = BILINEAR_3POINT;
+	else if (ui->blnrNearestRadioButton->isChecked())
+		config.texture.bilinearMode = BILINEAR_NEAREST;
 
 	config.generalEmulation.rdramImageDitheringMode = ui->ditheringModeComboBox->currentIndex();
 	config.generalEmulation.enableDitheringQuantization = ui->ditheringQuantizationCheckBox->isChecked() ? 1 : 0;

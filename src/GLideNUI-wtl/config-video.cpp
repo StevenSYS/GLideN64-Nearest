@@ -130,6 +130,7 @@ void CVideoTab::ApplyLanguage(void) {
 	SetDlgItemTextW(IDC_BILINEAR, wGS(VIDEO_BILINEAR).c_str());
 	SetDlgItemTextW(IDC_BILINEAR_STANDARD, wGS(VIDEO_BILINEAR_STANDARD).c_str());
 	SetDlgItemTextW(IDC_BILINEAR_3POINT, wGS(VIDEO_BILINEAR_3POINT).c_str());
+	SetDlgItemTextW(IDC_BILINEAR_NEAREST, wGS(VIDEO_BILINEAR_NEAREST).c_str());
 
 	SetDlgItemTextW(IDC_DITHERING_GROUP, wGS(VIDEO_DITHERING_GROUP).c_str());
 	SetDlgItemTextW(IDC_PATTERN, wGS(VIDEO_PATTERN).c_str());
@@ -168,6 +169,7 @@ void CVideoTab::ApplyLanguage(void) {
 	TTSetTxt(GetDlgItem(IDC_BILINEAR), tooltip.c_str());
 	TTSetTxt(GetDlgItem(IDC_BILINEAR_STANDARD), tooltip.c_str());
 	TTSetTxt(GetDlgItem(IDC_BILINEAR_3POINT), tooltip.c_str());
+	TTSetTxt(GetDlgItem(IDC_BILINEAR_NEAREST), tooltip.c_str());
 	tooltip = wGS(VIDEO_DITHERING_APPLY_TO_OUTPUT_TOOLTIP);
 	TTSetTxt(GetDlgItem(IDC_CHK_APPLY_TO_OUTPUT), tooltip.c_str());
 	tooltip = wGS(VIDEO_DITHERING_5BIT_QUANTIZATION_TOOLTIP);
@@ -284,6 +286,7 @@ void CVideoTab::HideMSAADepthWarning(bool hide)
 	IDC_BILINEAR,
 	IDC_BILINEAR_STANDARD,
 	IDC_BILINEAR_3POINT,
+	IDC_BILINEAR_NEAREST,
 	IDC_DITHERING_GROUP,
 	IDC_PATTERN,
 	IDC_CMB_PATTERN,
@@ -471,6 +474,7 @@ void CVideoTab::LoadSettings(bool /*blockCustomSettings*/) {
 
 	CButton(GetDlgItem(IDC_BILINEAR_3POINT)).SetCheck(config.texture.bilinearMode == BILINEAR_3POINT ? BST_CHECKED : BST_UNCHECKED);
 	CButton(GetDlgItem(IDC_BILINEAR_STANDARD)).SetCheck(config.texture.bilinearMode == BILINEAR_STANDARD ? BST_CHECKED : BST_UNCHECKED);
+	CButton(GetDlgItem(IDC_BILINEAR_NEAREST)).SetCheck(config.texture.bilinearMode == BILINEAR_NEAREST ? BST_CHECKED : BST_UNCHECKED);
 
 	CComboBox aspectComboBox(GetDlgItem(IDC_CMB_ASPECT_RATIO));
 	switch (config.frameBufferEmulation.aspect) {
@@ -562,6 +566,8 @@ void CVideoTab::SaveSettings()
 		config.texture.bilinearMode = BILINEAR_3POINT;
 	if (CButton(GetDlgItem(IDC_BILINEAR_STANDARD)).GetCheck() == BST_CHECKED)
 		config.texture.bilinearMode = BILINEAR_STANDARD;
+	if (CButton(GetDlgItem(IDC_BILINEAR_NERAEST)).GetCheck() == BST_CHECKED)
+		config.texture.bilinearMode = BILINEAR_NERAEST;
 
 	config.generalEmulation.rdramImageDitheringMode = CComboBox(GetDlgItem(IDC_CMB_PATTERN)).GetCurSel();
 	config.generalEmulation.enableDitheringPattern = CButton(GetDlgItem(IDC_CHK_APPLY_TO_OUTPUT)).GetCheck() == BST_CHECKED ? 1 : 0;

@@ -412,7 +412,11 @@ public:
 	void update(bool _force) override
 	{
 		int textureFilter = gDP.otherMode.textureFilter;
-		uTextureFilterMode.set(textureFilter, _force);
+		if (config.texture.bilinearMode == BILINEAR_NEAREST) { // Terrible fix.
+			uTextureFilterMode.set(0, _force);
+		} else {
+			uTextureFilterMode.set(textureFilter, _force);
+		}
 		uTextureFormat.set(gSP.textureTile[0]->format, gSP.textureTile[1]->format, _force);
 		uTextureConvert.set(gDP.otherMode.convert_one, _force);
 		if (gDP.otherMode.bi_lerp0 == 0 || gDP.otherMode.bi_lerp1 == 0)

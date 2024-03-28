@@ -329,6 +329,20 @@ public:
 					"}																			\n"
 					;
 				switch (config.texture.bilinearMode + config.texture.enableHalosRemoval * 2) {
+				case BILINEAR_NEAREST:
+					shaderPart +=
+						"#define TEX_FILTER(name, tex, tcData)																		\\\n"
+						"{																											\\\n"
+						"  lowp vec4 c00 = texelFetch(tex, ivec2(tcData[0]), 0); \\\n"
+						"  lowp vec4 c01 = texelFetch(tex, ivec2(tcData[1]), 0); \\\n"
+						"  lowp vec4 c10 = texelFetch(tex, ivec2(tcData[2]), 0); \\\n"
+						"  lowp vec4 c11 = texelFetch(tex, ivec2(tcData[3]), 0); \\\n"
+						"  lowp vec4 c0 = c00;												   	\\\n"
+						"  lowp vec4 c1 = c01;													\\\n"
+						"  name = c0;															\\\n"
+						"}																												\n"
+						;
+				break;
 				case BILINEAR_3POINT:
 					// 3 point texture filtering.
 					// Original author: ArthurCarvalho
@@ -711,6 +725,13 @@ public:
 				"  return c00;																					\n"
 				"}																								\n"
 				;
+			static const std::string strNearestStandardEndGles2 =
+				"  lowp vec4 c0 = c00;																			\n"
+				"  lowp vec4 c1 = c01;																			\n"
+				"  return c0;																					\n"
+				"  return c00;																					\n"
+				"}																								\n"
+				;
 
 			if (config.texture.bilinearMode == BILINEAR_3POINT) {
 				m_part = strReadTex0;
@@ -718,10 +739,17 @@ public:
 				m_part += strReadTex1;
 				m_part += strBillinear3PointEndGles2;
 			} else {
-				m_part = strReadTex0;
-				m_part += strBillinearStandardEndGles2;
-				m_part += strReadTex1;
-				m_part += strBillinearStandardEndGles2;
+				if (config.texture.bilinearMode == BILINEAR_STANDARD) {
+					m_part = strReadTex0;
+					m_part += strBillinearStandardEndGles2;
+					m_part += strReadTex1;
+					m_part += strBillinearStandardEndGles2;
+				} else {
+					m_part = strReadTex0;
+					m_part += strNearestStandardEndGles2;
+					m_part += strReadTex1;
+					m_part += strNearestStandardEndGles2;
+				}
 			}
 
 			m_part +=
@@ -838,16 +866,29 @@ public:
 				"  name = c0 + tcData[4].t * (c1-c0);													\\\n"
 				"}																						\n"
 				;
+			static const std::string strNearestStandardEnd =
+				"  lowp vec4 c0 = c00;																	\\\n"
+				"  lowp vec4 c1 = c01;																	\\\n"
+				"  name = c0;																			\\\n"
+				"}																						\n"
+				;
 			if (config.texture.bilinearMode == BILINEAR_3POINT) {
 				m_part = strReadTex0;
 				m_part += strBillinear3PointEnd;
 				m_part += strReadTex1;
 				m_part += strBillinear3PointEnd;
 			} else {
-				m_part = strReadTex0;
-				m_part += strBillinearStandardEnd;
-				m_part += strReadTex1;
-				m_part += strBillinearStandardEnd;
+				if (config.texture.bilinearMode == BILINEAR_STANDARD) {
+					m_part = strReadTex0;
+					m_part += strBillinearStandardEnd;
+					m_part += strReadTex1;
+					m_part += strBillinearStandardEnd;
+				} else {
+					m_part = strReadTex0;
+					m_part += strNearestStandardEnd;
+					m_part += strReadTex1;
+					m_part += strNearestStandardEnd;
+				}
 			}
 			m_part +=
 				"uniform lowp int uEnableLod;											\n"

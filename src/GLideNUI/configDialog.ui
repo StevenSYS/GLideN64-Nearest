@@ -829,7 +829,7 @@
               <item>
                <widget class="QFrame" name="blnrFrame">
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Bilinear filtering&lt;/span&gt;: Textures will use standard PC-style bilinear filtering.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;N64-style 3 point&lt;/span&gt;: Textures will be filtered more like the N64. The result is less smooth but more accurate.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Bilinear filtering&lt;/span&gt;: Textures will use standard PC-style bilinear filtering.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;N64-style 3 point&lt;/span&gt;: Textures will be filtered more like the N64. The result is less smooth but more accurate.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Nearest Neighbor&lt;/span&gt;: Textures will use Nearest Neighbor filtering. The result is textures will look pixelated.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_13">
                  <property name="spacing">
@@ -875,6 +875,13 @@
                   <widget class="QRadioButton" name="blnr3PointRadioButton">
                    <property name="text">
                     <string extracomment="3 point bilinear filtering as used by the Nintendo 64.">N64-style 3 point</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QRadioButton" name="blnrNearestRadioButton">
+                   <property name="text">
+                    <string>Nearest Neighbor</string>
                    </property>
                   </widget>
                  </item>

@@ -62,7 +62,8 @@ void LoadDefaultStrings(void)
 	g_defaultStrings.insert(LANG_STRINGS::value_type(VIDEO_BILINEAR, "Bilinear filtering:"));
 	g_defaultStrings.insert(LANG_STRINGS::value_type(VIDEO_BILINEAR_STANDARD, "Standard"));
 	g_defaultStrings.insert(LANG_STRINGS::value_type(VIDEO_BILINEAR_3POINT, "N64-style 3 point"));
-	g_defaultStrings.insert(LANG_STRINGS::value_type(VIDEO_BILINEAR_TOOLTIP, "Bilinear filtering: Textures will use standard PC-style bilinear filtering.\n\nN64-style 3 point: Textures will be filtered more like the N64. The result is less smooth but more accurate."));
+	g_defaultStrings.insert(LANG_STRINGS::value_type(VIDEO_BILINEAR_NEAREST, "Nearest Neighbor"));
+	g_defaultStrings.insert(LANG_STRINGS::value_type(VIDEO_BILINEAR_TOOLTIP, "Bilinear filtering: Textures will use standard PC-style bilinear filtering.\n\nN64-style 3 point: Textures will be filtered more like the N64. The result is less smooth but more accurate.\n\nNearest Neighbor: Textures will use Nearest Neighbor filtering. The result is textures will look pixelated."));
 	g_defaultStrings.insert(LANG_STRINGS::value_type(VIDEO_DITHERING_GROUP, "Dithering"));
 	g_defaultStrings.insert(LANG_STRINGS::value_type(VIDEO_PATTERN, "Pattern (RDRAM):"));
 	g_defaultStrings.insert(LANG_STRINGS::value_type(VIDEO_DITHERING_APPLY_TO_OUTPUT, "Apply to final output"));
