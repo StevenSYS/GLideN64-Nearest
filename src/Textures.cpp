@@ -1397,6 +1397,12 @@ void doubleTexture(T* pTex, u32 width, u32 height)
 
 void TextureCache::_loadFast(u32 _tile, CachedTexture *_pTexture)
 {
+	// Sanity check
+	if (auto pTile = gSP.textureTile[_tile]; (int)pTile->lrs - (int)pTile->uls < 0 || (int)pTile->lrt - (int)pTile->ult < 0) {
+		activateDummy(_tile);
+		return;
+	}
+
 	u64 ricecrc = 0;
 	u64 strongcrc = 0;
 	if (_loadHiresTexture(_tile, _pTexture, ricecrc, strongcrc))
@@ -1604,6 +1610,12 @@ void TextureCache::_loadFast(u32 _tile, CachedTexture *_pTexture)
 
 void TextureCache::_loadAccurate(u32 _tile, CachedTexture *_pTexture)
 {
+	// Sanity check
+	if (auto pTile = gSP.textureTile[_tile]; (int)pTile->lrs - (int)pTile->uls < 0 || (int)pTile->lrt - (int)pTile->ult < 0) {
+		activateDummy(_tile);
+		return;
+	}
+
 	u64 ricecrc = 0;
 	u64 strongcrc = 0;
 	if (_loadHiresTexture(_tile, _pTexture, ricecrc, strongcrc))
