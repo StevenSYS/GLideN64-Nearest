@@ -1179,8 +1179,8 @@ bool TextureCache::_loadHiresTexture(u32 _tile, CachedTexture *_pTexture, u64 & 
 			height--;
 	} else {
 		const gDPTile * pTile = gSP.textureTile[_tile];
-		int tile_width = pTile->lrs - pTile->uls + 1;
-		int tile_height = pTile->lrt - pTile->ult + 1;
+		int tile_width = ((pTile->lrs - pTile->uls) & 0x03FF) + 1;
+		int tile_height = ((pTile->lrt - pTile->ult) & 0x03FF) + 1;
 
 		int mask_width = (pTile->masks == 0) ? (tile_width) : (1 << pTile->masks);
 		int mask_height = (pTile->maskt == 0) ? (tile_height) : (1 << pTile->maskt);
@@ -2101,12 +2101,6 @@ void TextureCache::update(u32 _t)
 		gSP.textureTile[0]->tmem == gSP.textureTile[1]->tmem) {
 		gSP.textureTile[0] = gSP.textureTile[1];
 		pTile = gSP.textureTile[_t];
-	}
-
-	// Sanity check
-	if ((int)pTile->lrs - (int)pTile->uls < 0 || (int)pTile->lrt - (int)pTile->ult < 0) {
-		activateDummy(_t);
-		return;
 	}
 
 	TileSizes sizes;
