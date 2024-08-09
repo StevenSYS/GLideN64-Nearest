@@ -341,7 +341,7 @@ public:
 						"  lowp vec4 c1 = c01;													\\\n"
 						"  name = c0;															\\\n"
 						"}																												\n"
-						; // Note: Remove unneeded stuff.
+						; // TODO: Remove unneeded stuff.
 				break;
 				case BILINEAR_3POINT:
 					// 3 point texture filtering.
